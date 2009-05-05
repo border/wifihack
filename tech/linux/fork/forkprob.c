@@ -15,6 +15,8 @@ pid_t Fork(void)
     pid_t pid;
     if((pid = fork()) < 0) {
         unix_error("fork error");
+    } else if(pid == 0) {
+        //exit(0);
     }
     return pid;
 }
@@ -27,13 +29,22 @@ void doit()
     printf("Hello - doit\n");
     return;
 }
-int main(void)
+
+void willdo()
 {
     int x = 1;
-    if(Fork() == 0) {
+    if(fork() == 0) {
         printf("printf1: x=%d\n", ++x);
         exit(0);
     }
     printf("printf2: x=%d\n", --x);
     exit(0);
 }
+
+int main(void)
+{
+    doit();
+    //exit(0);
+    return 0;
+}
+
